@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keep_code/features/countries/presentation/blocs/countries/countries_bloc.dart';
 import 'package:keep_code/features/countries/presentation/ui/countries_screen.dart';
 import 'package:keep_code/features/services/presentation/blocs/services/services_bloc.dart';
+import 'package:keep_code/features/services_and_countries/presentation/blocs/countries_and_services/countries_and_services_bloc.dart';
 
 class ServicesScreen extends StatefulWidget {
   const ServicesScreen({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class ServicesScreen extends StatefulWidget {
 class _ServicesScreenState extends State<ServicesScreen> {
   @override
   void initState() {
+    BlocProvider.of<CountriesAndServicesBloc>(context)
+        .add(GetCountriesAndServices());
     super.initState();
   }
 

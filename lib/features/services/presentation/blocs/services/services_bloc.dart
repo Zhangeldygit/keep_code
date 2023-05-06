@@ -9,10 +9,11 @@ part 'services_state.dart';
 class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
   final GetServicesUseCase servicesUseCase;
 
-  ServicesBloc({required this.servicesUseCase}) : super(ServicesInitial()) {
+  ServicesBloc({
+    required this.servicesUseCase,
+  }) : super(ServicesInitial()) {
     on<GetServices>((event, emit) async {
       emit(ServicesLoading());
-
       final services = await servicesUseCase.call();
 
       emit(ServicesLoaded(services: services));

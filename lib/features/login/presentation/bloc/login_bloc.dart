@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -22,9 +24,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(LoginLoading());
 
-    await _loginUseCase.call(event.email, event.passWord);
+    final user = await _loginUseCase.call(event.email, event.passWord);
 
-    emit(LoginSuccess());
+    if (user.sessionId != null) {
+      emit(LoginSuccess());
+    } else {
+      emit(const LoginFailure(error: 'Something went wrong'));
+    }
   }
 
   Future<void> _onCheckAuth(
@@ -33,10 +39,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     final box = Hive.box("tokens");
     final token = box.get('sessionId');
+    log("token $token");
     if (token != null) {
       emit(LoginSuccess());
     } else {
-      emit(LoginFailure());
+      emit(UnAuthState());
     }
   }
 }

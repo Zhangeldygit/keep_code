@@ -15,6 +15,11 @@ import 'package:keep_code/features/services/data/data_sources/remote_services_da
 import 'package:keep_code/features/services/data/repos_impl/services_repo_impl.dart';
 import 'package:keep_code/features/services/domain/user_cases/services_use_cases.dart';
 import 'package:keep_code/features/services/presentation/blocs/services/services_bloc.dart';
+import 'package:keep_code/features/services_and_countries/data/data_sources/local_all_data_source.dart';
+import 'package:keep_code/features/services_and_countries/data/data_sources/remote_all_data_source.dart';
+import 'package:keep_code/features/services_and_countries/data/repos_impl/countries_and_services_repo_impl.dart';
+import 'package:keep_code/features/services_and_countries/domain/use_cases/countries_and_services_use_cases.dart';
+import 'package:keep_code/features/services_and_countries/presentation/blocs/countries_and_services/countries_and_services_bloc.dart';
 
 class InitWidget extends StatelessWidget {
   const InitWidget({
@@ -37,6 +42,9 @@ class InitWidget extends StatelessWidget {
                 LocalCountriesDataSourceImpl())),
         RepositoryProvider(
             create: (context) => LoginReposImpl(LoginDataSourceImpl())),
+        RepositoryProvider(
+            create: (context) => CountriesAndServicesRepoImpl(
+                RemoteAllDataSourceImpl(), LocalAllDataSourceImpl()))
       ],
       child: MultiBlocProvider(
         providers: [
@@ -58,6 +66,12 @@ class InitWidget extends StatelessWidget {
             ),
           ),
           BlocProvider(create: (context) => ActiveServicesBloc()),
+          BlocProvider(
+            create: (context) => CountriesAndServicesBloc(
+              countriesAndServicesUseCase: GetCountriesAndServicesUseCaseImpl(
+                  context.read<CountriesAndServicesRepoImpl>()),
+            )..add(GetCountriesAndServices()),
+          )
         ],
         child: child,
       ),

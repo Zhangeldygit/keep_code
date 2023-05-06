@@ -20,7 +20,7 @@ class LoginDataSourceImpl implements LoginDataSource {
       return UserModel.fromJson(parced);
     } catch (e) {
       log(e.toString());
-      return UserModel();
+      throw Exception(e.toString());
     }
   }
 }

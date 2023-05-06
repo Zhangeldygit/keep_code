@@ -15,4 +15,10 @@ class CheckAuth extends LoginState {}
 
 class LoginSuccess extends LoginState {}
 
-class LoginFailure extends LoginState {}
+class LoginFailure extends LoginState {
+  final String error;
+
+  const LoginFailure({required this.error});
+}
+
+class UnAuthState extends LoginState {}

@@ -6,10 +6,10 @@ import '../../../constants/app_styles.dart';
 class PasswordTextField extends StatelessWidget {
   const PasswordTextField({
     Key? key,
-    this.onSaved,
+    required this.controller,
   }) : super(key: key);
 
-  final Function(String?)? onSaved;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +19,7 @@ class PasswordTextField extends StatelessWidget {
       ),
       obscureText: true,
       obscuringCharacter: '・',
+      controller: controller,
       decoration: InputDecoration(
         hintText: "Пароль",
         hintStyle: AppStyles.s16w400.copyWith(
@@ -34,13 +35,6 @@ class PasswordTextField extends StatelessWidget {
         ),
         counterText: '',
       ),
-      // maxLength: 16,
-      validator: (value) {
-        if (value == null) return "Неверный пароль";
-
-        return null;
-      },
-      onSaved: onSaved,
     );
   }
 }

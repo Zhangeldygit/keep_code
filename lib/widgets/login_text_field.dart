@@ -5,14 +5,15 @@ import 'package:keep_code/constants/app_styles.dart';
 class LoginTextField extends StatelessWidget {
   const LoginTextField({
     Key? key,
-    this.onSaved,
+    required this.controller,
   }) : super(key: key);
 
-  final Function(String?)? onSaved;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       style: AppStyles.s16w400.copyWith(
         color: AppColors.mainText,
       ),
@@ -31,15 +32,6 @@ class LoginTextField extends StatelessWidget {
         ),
         counterText: '',
       ),
-      // maxLength: 8,
-      validator: (value) {
-        if (value == null) return "Неверный логин";
-        // if (value.length < 3) {
-        //   return S.of(context).inputErrorLoginIsShorterThan(3);
-        // }
-        return null;
-      },
-      onSaved: onSaved,
     );
   }
 }

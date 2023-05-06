@@ -12,6 +12,7 @@ class LoginReposImpl implements LoginRepo {
     final box = Hive.box('tokens');
     try {
       final user = await loginDataSource.login(email, passWord);
+
       box.put('sessionId', user.sessionId);
       return user;
     } on Exception catch (e) {

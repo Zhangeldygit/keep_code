@@ -8,6 +8,8 @@ import 'package:keep_code/features/login/presentation/bloc/login_bloc.dart';
 import 'package:keep_code/features/login/presentation/ui/login_screen.dart';
 import 'package:keep_code/features/services/domain/models/service_model.dart';
 import 'package:keep_code/features/services/presentation/ui/services_screen.dart';
+import 'package:keep_code/features/services_and_countries/domain/models/countries_and_services_model.dart';
+import 'package:keep_code/widgets/alert_dialog.dart';
 import 'package:keep_code/widgets/init_widget.dart';
 
 Future<void> main() async {
@@ -15,6 +17,9 @@ Future<void> main() async {
   Hive.registerAdapter(ServiceModelAdapter()); // 0
   Hive.registerAdapter(CountryModelAdapter()); // 1
   Hive.registerAdapter(UserModelAdapter()); // 2
+  Hive.registerAdapter(CountriesAndServicesModelAdapter()); // 3
+  Hive.registerAdapter(ServiceEntryAdapter()); // 4
+  Hive.registerAdapter(CountryEntryAdapter()); // 5
   await Hive.initFlutter();
   await Hive.openBox('tokens');
   await Hive.openBox('service');
